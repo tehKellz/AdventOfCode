@@ -3,16 +3,15 @@ using AdventOfCode;
 
 namespace AdventOfCode
 {
-  class Template : CodeTest
-  {
-    public Template() {}
+class Template : CodeTest
+{
     public bool Enabled => false;
 
     public string Run()
     {
-      Console.WriteLine("Hello World Template");
+        Console.WriteLine("Hello World Template");
 
-      return "Template Output";
+        return "Template Output";
     }
-  }
+}
 }
