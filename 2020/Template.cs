@@ -3,16 +3,16 @@ using AdventOfCode;
 
 namespace AdventOfCode
 {
-  class DayOneA : CodeTest
+  class Template : CodeTest
   {
-    public DayOneA() {}
-
+    public Template() {}
     public bool Enabled => false;
 
     public string Run()
     {
-      Console.WriteLine("Hello World Day One");
-      return "output";
+      Console.WriteLine("Hello World Template");
+
+      return "Template Output";
     }
   }
 }

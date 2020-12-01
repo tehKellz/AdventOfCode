@@ -33,12 +33,7 @@ namespace AdventOfCode
       Console.WriteLine("Running Tests.");
       foreach(var test in Tests)
       {
-        string output = "<disabled>";
-        if (test.Enabled)
-        {
-          output = test.Run();
-        }
-          
+        string output = test.Enabled ? test.Run() : "<disabled>";
         Console.WriteLine("  [" + test.GetType().ToString() + "]: " + output);
       }
       Console.WriteLine("Run complete.");
