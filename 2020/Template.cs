@@ -1,5 +1,4 @@
 using System;
-using AdventOfCode;
 
 namespace AdventOfCode
 {
