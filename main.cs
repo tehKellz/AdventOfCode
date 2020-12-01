@@ -12,7 +12,7 @@ public interface CodeTest
 
 public class AdventOfCodeMain
 {
-    private static List<CodeTest> Tests = new List<CodeTest>();
+    private static List<CodeTest> Challenges = new List<CodeTest>();
 
     static void Main(string[] args)
     {
@@ -22,15 +22,21 @@ public class AdventOfCodeMain
             if (t.GetInterface("AdventOfCode.CodeTest") != null)
             {
                 CodeTest instance = (CodeTest)Activator.CreateInstance(t);
-                Tests.Add(instance);
+                Challenges.Add(instance);
             }
         }
 
-        Console.WriteLine("Running Tests.");
-        foreach(var test in Tests)
+        var watch = new System.Diagnostics.Stopwatch();
+        Console.WriteLine("Running Challenges.");
+        foreach(var test in Challenges)
         {
             if (test.Enabled)
-                Console.WriteLine("  [" + test.GetType().ToString() + "]: " + test.Run());
+            {
+                watch.Restart();
+                string output = test.Run();
+                watch.Stop();
+                Console.WriteLine($"  [{test.GetType().Name}]({watch.ElapsedMilliseconds}ms): " + output);
+            }
         }
         Console.WriteLine("Run complete.");
     }

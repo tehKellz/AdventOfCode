@@ -10,17 +10,14 @@ class DayOneA : CodeTest
 
     public string Run()
     {
-        string[] lines = System.IO.File.ReadAllLines(@"./2020/DayOne.input");
-        foreach(var l in lines)
-        {
-            Expenses.Add(Int32.Parse(l));
-        }
+        Utils.Load("./2020/DayOne.input", Expenses);
 
         for(int i=0; i< Expenses.Count - 1; ++i)
         {
             for(int j=i + 1; j < Expenses.Count; ++j)
             {
-                if (Expenses[i] + Expenses[j] == 2020) return (Expenses[i] * Expenses[j]).ToString();
+                if (Expenses[i] + Expenses[j] == 2020) 
+                    return (Expenses[i] * Expenses[j]).ToString();
             }
         }
         return "None found";
