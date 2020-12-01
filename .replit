@@ -1,0 +1,4 @@
+language = "csharp"
+run = "mcs -out:aoc_test.exe *.cs */*.cs;mono aoc_test.exe;rm -f aoc_test.exe;"
+
+# "csc -out:output.exe 1/a/main.cs; chmod 700 ./output.exe; ./output.exe; rm -f ./output.exe"
