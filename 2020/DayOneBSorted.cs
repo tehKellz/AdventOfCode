@@ -28,7 +28,7 @@ class DayOneBSorted : CodeTest
                 {
                     --h;
                 }
-                // Not adjacent low and mid, looking for a higher number
+                // Not adjacent low and mid, looking for a lower number
                 // increment the lower and recet mid to next up.
                 else
                 {
