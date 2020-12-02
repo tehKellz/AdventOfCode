@@ -5,7 +5,7 @@ using System.Reflection;
 namespace AdventOfCode
 {
 
-public class Utils
+public static class Utils
 {
     // bool perLine(T1 line, int lineNum) : return true if processing of the file should stop.
     static public bool Load<T1>(string fileName, Func<T1,int,bool> perLine)
@@ -133,6 +133,134 @@ public class Utils
             return false;
         }, seperator);
         if (interim != null) output.Add(interim);
+    }
+
+    //
+    // Formatted splitting/parsing
+    //
+    public class StringView
+    {
+        public StringView(String str)
+        {
+            _base = str;
+            _length = str.Length;
+        }
+
+        private String _base;
+        private int _start = 0;
+        private int _length = 0;
+        public int Length 
+        {
+            get
+            {
+                return _length;
+            }
+        }
+
+        public override string ToString()
+        {
+            return _base.Substring(_start,_length);
+        }
+
+        public StringView Substring(int start, int length = Int32.MaxValue)
+        {
+            StringView stv = new StringView(_base);
+            stv._start = _start + start;
+            stv._length = length;
+            if (stv._start >= _base.Length) stv._start = _base.Length - 1;
+            if (stv._length > _base.Length) stv._length = _base.Length - stv._start;
+
+            return stv;
+        }
+
+        public int IndexOf(string token)
+        {
+            return _base.IndexOf(token,_start,_length) - _start;
+        }
+    }
+
+    private static int SplitInternal<T1>(StringView str, out T1 v1, string D1 = null)
+    {
+        try
+        {
+            if (D1 != null)
+            {
+                int i1 = str.IndexOf(D1);
+                if (i1 >= 0)
+                {
+                    v1 = (T1)Convert.ChangeType(str.Substring(0,i1).ToString(), typeof(T1));
+                    return i1;
+                }
+            }
+            else
+            {
+                v1 = (T1)Convert.ChangeType(str.ToString(), typeof(T1));
+                return str.Length - 1;
+            }
+        }
+        catch (Exception)
+        {
+            v1 = default(T1);
+            return -1;
+        }
+
+        v1 = default(T1);
+        return -1;
+    }
+
+    public static bool Split<T1>(this StringView str, out T1 v1, string D1 = null)
+    {
+        return SplitInternal<T1>(str, out v1, D1) != -1;
+    }
+
+    public static bool Split<T1,T2>(this StringView str, out T1 v1, string D1, out T2 v2, string D2 = null)
+    {
+        int index = SplitInternal(str, out v1, D1);
+        if (index != -1)
+        {
+            return str.Substring(index + D1.Length).Split(out v2, D2);
+        }
+        v2 = default(T2);
+        return false;
+    }
+
+    public static bool Split<T1,T2,T3>(this StringView str, out T1 v1, string D1, out T2 v2, string D2, out T3 v3, string D3 = null)
+    {
+        int index = SplitInternal(str, out v1, D1);
+        if (index != -1)
+        {
+            return str.Substring(index + D1.Length).Split(out v2, D2, out v3, D3);
+        }
+        v2 = default(T2);
+        v3 = default(T3);
+        return false;
+    }
+
+    public static bool Split<T1,T2,T3,T4>(this StringView str, out T1 v1, string D1, out T2 v2, string D2, out T3 v3, string D3, out T4 v4, string D4 = null)
+    {
+        int index = SplitInternal(str, out v1, D1);
+        if (index != -1)
+        {
+            return str.Substring(index + D1.Length).Split(out v2, D2, out v3, D3, out v4, D4);
+        }
+        v2 = default(T2);
+        v3 = default(T3);
+        v4 = default(T4);
+        return false;
+    }
+
+    public static bool Split<T1,T2,T3,T4,T5>(this StringView str, out T1 v1, string D1, out T2 v2, string D2, out T3 v3, string D3, out T4 v4, string D4, out T5 v5, string D5 = null)
+    {
+        int index = SplitInternal(str, out v1, D1);
+        if (index != -1)
+        {
+            return str.Substring(index + D1.Length).Split(out v2, D2, out v3, D3, out v4, D4, out v5, D5);
+        }
+        v2 = default(T2);
+        v3 = default(T3);
+        v4 = default(T4);
+        v5 = default(T5);
+        return false;
     }
 }
 }

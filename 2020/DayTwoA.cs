@@ -11,7 +11,6 @@ class DayTwoA : CodeTest
         int total = 0;
         Utils.Load<string>("./2020/DayTwo.input", (s, l) => 
         {
-            
             var t = s.Split(new Char [] {'-', ' ', ':'});
             int min = Int32.Parse(t[0]);
             int max = Int32.Parse(t[1]);

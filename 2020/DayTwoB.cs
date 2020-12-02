@@ -3,6 +3,11 @@ using System;
 namespace AdventOfCode
 {
 
+public static class MyExt
+{
+
+}
+
 class DayTwoB : CodeTest
 {
     public bool Enabled => true;
@@ -12,13 +17,9 @@ class DayTwoB : CodeTest
         int total = 0;
         Utils.Load<string>("./2020/DayTwo.input", (s, l) => 
         {
-            var t = s.Split(new Char [] {'-', ' ', ':'});
-            int min = Int32.Parse(t[0]) - 1;
-            int max = Int32.Parse(t[1]) - 1;
-            char letter = t[2][0];
-            string pw = t[4];
-
-            if (pw[min] == letter ^ pw[max] == letter) total++;
+            Utils.StringView stv = new Utils.StringView(s);
+            stv.Split(out int min, "-", out int max, " ", out char letter, ": ", out string pw);
+            if (pw[min - 1] == letter ^ pw[max - 1] == letter) total++;
 
             return false;
         });
