@@ -6,8 +6,8 @@ namespace AdventOfCode
 class UtilTests : CodeTest
 {
     public bool Enabled => false;
-
-    public string Run()
+    public void Init() {}
+    public string RunA()
     {
         List<List<float>> data = new List<List<float>>();
         Utils.LoadCSV("./Tests/TestDict", data, ",");
@@ -20,5 +20,6 @@ class UtilTests : CodeTest
         }
         return "Tests Complete";
     }
+    public string RunB() { return ""; }
 }
 }

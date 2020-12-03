@@ -3,16 +3,20 @@ using System.Collections.Generic;
 
 namespace AdventOfCode
 {
-class DayOneBSorted : CodeTest
+class Day1BSorted : CodeTest
 {
-    public bool Enabled => false;
+    public bool Enabled => true;
     private List<int> E = new List<int>();
 
-    public string Run()
+    public void Init() 
     {
-        Utils.Load("./2020/DayOne.input", E);
+        Utils.Load("./2020/Day1.input", E);
         E.Sort();
+    }
 
+    public string RunA() { return ""; }
+    public string RunB()
+    {
         int kMax = E.Count;
         for(int i=0; i< E.Count - 2; ++i)
         {

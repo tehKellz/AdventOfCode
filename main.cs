@@ -7,7 +7,9 @@ namespace AdventOfCode
 public interface CodeTest
 {
     bool Enabled { get; }
-    string Run();
+    void Init();
+    string RunA();
+    string RunB();
 }
 
 public class AdventOfCodeMain
@@ -32,10 +34,16 @@ public class AdventOfCodeMain
         {
             if (test.Enabled)
             {
+                test.Init();
                 watch.Restart();
-                string output = test.Run();
+                string outputA = test.RunA();
                 watch.Stop();
-                Console.WriteLine($"  [{test.GetType().Name}]({watch.ElapsedMilliseconds}ms): " + output);
+                Console.WriteLine($"  [{test.GetType().Name} A]({watch.ElapsedMilliseconds}ms): " + outputA);
+
+                watch.Restart();
+                string outputB = test.RunB();
+                watch.Stop();
+                Console.WriteLine($"  [{test.GetType().Name} B]({watch.ElapsedMilliseconds}ms): " + outputB);
             }
         }
         Console.WriteLine("Run complete.");

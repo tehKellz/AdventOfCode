@@ -6,11 +6,22 @@ class Template : CodeTest
 {
     public bool Enabled => false;
 
-    public string Run()
+    public void Init() 
     {
-        Console.WriteLine("Hello World Template");
+    }
 
-        return "Template Output";
+    public string RunA()
+    {
+        Console.WriteLine("Hello World A");
+
+        return "Template Output A";
+    }
+
+    public string RunB()
+    {
+        Console.WriteLine("Hello World B");
+
+        return "Template Output B";
     }
 }
 }
