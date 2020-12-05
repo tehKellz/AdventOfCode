@@ -36,6 +36,18 @@ public static class Utils
         return Load<T1>(fileName, (l,n) => { return perLine(l); });
     }
 
+    // void perLine(T1 line) // always processes all lines
+    static public void Load<T1>(string fileName, Action<T1> perLine)
+    {
+        Load<T1>(fileName, (l,n) => { perLine(l); return false; });
+    }
+
+    // void perLine(T1 line, int lineNum) // always processes all lines
+    static public void Load<T1>(string fileName, Action<T1,int> perLine)
+    {
+        Load<T1>(fileName, (l,n) => { perLine(l,n); return false; });
+    }
+
     static public bool Load<T1, T2>(string fileName, Func<T1, T2, bool> perLine, string seperator = ",")
     {
         return Load<string>(fileName, (s) => {

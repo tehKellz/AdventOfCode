@@ -9,9 +9,8 @@ class Day5 : CodeTest
     List<int> Seats = new List<int>();
     public void Init() 
     {
-        Utils.Load<string>("2020/Day5.input", (s, n) => {
+        Utils.Load<string>("2020/Day5.input", (s) => {
             Seats.Add(FindSeat(s));
-            return false;
         });
         Seats.Sort();
     }
@@ -19,12 +18,10 @@ class Day5 : CodeTest
     int FindSeat(string pass)
     {
         int seat = 0;
-        for(int j=0; j<pass.Length;++j)
+        for(int j=0; j<10;++j)
         {
             if (pass[j] == 'B' || pass[j] == 'R')
-            {
-                seat |= (1 << (pass.Length - j - 1));
-            }
+                seat |= (1 << (9 - j));
         }
         return seat;
     }
@@ -38,13 +35,10 @@ class Day5 : CodeTest
     {
         for(int i=0; i< Seats.Count - 2; i++)
         {
-            int next = Seats[i]+1;
-            if (next != Seats[i+1])
-            {
-                return next.ToString();
-            }
+            if (Seats[i]+1 != Seats[i+1])
+                return (Seats[i]+1).ToString();
         }
-        return "Output B";
+        return "No open seats";
     }
 }
 }
