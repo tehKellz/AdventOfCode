@@ -5,7 +5,7 @@ namespace AdventOfCode
 {
 class Day1BSorted : CodeTest
 {
-    public bool Enabled => true;
+    public bool Enabled => false;
     private List<int> E = new List<int>();
 
     public void Init() 

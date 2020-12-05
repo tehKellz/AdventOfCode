@@ -5,7 +5,7 @@ namespace AdventOfCode
 {
 class Day3 : CodeTest
 {
-    public bool Enabled => true;
+    public bool Enabled => false;
 
     List<string> Trees = new List<string>();
     public void Init() 
