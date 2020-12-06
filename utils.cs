@@ -89,6 +89,25 @@ public static class Utils
         }, seperator);
     }
 
+    // Puts grouped lines (separated by a blank line) into a list together.
+    static public void Load<T>(string fileName, List<List<T>> output)
+    {
+        List<T> currentGroup = new List<T>();
+        Utils.Load<string>(fileName, (s, n) => {
+            if (s.Length == 0)
+            {
+                output.Add(currentGroup);
+                currentGroup = new List<T>();
+            }
+            else
+            {
+                currentGroup.Add((T)Convert.ChangeType(s, typeof(T)));
+            }
+            return false;
+        });
+        output.Add(currentGroup);
+    }
+
     // bool perElement(T1 element, int lineNum, int index) : return true if processing of the file should stop.
     static public bool LoadCSV<T1>(string fileName, Func<T1, int, int, bool> perElement, string seperator = ",")
     {
