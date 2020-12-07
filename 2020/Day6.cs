@@ -5,7 +5,7 @@ namespace AdventOfCode
 {
 class Day6 : CodeTest
 {
-    public bool Enabled => true;
+    public bool Enabled => false;
 
     public void Init() 
     {
