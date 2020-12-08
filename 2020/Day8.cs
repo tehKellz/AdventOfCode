@@ -9,10 +9,10 @@ class Day8 : CodeTest
 
     public enum Op
     {
-        nop,
-        acc,
-        jmp,
-        end
+        NOP,
+        ACC,
+        JMP,
+        END
     }
 
     public class Instruction
@@ -23,16 +23,16 @@ class Day8 : CodeTest
             switch(split[0])
             {
                 case "nop":
-                    op = Op.nop;
+                    op = Op.NOP;
                     break;
                 case "acc":
-                    op = Op.acc;
+                    op = Op.ACC;
                     break;
                 case "jmp":
-                    op = Op.jmp;
+                    op = Op.JMP;
                     break;
                 case "end":
-                    op = Op.end;
+                    op = Op.END;
 
                     break;
                 default:
@@ -40,7 +40,7 @@ class Day8 : CodeTest
             }
             v1 = Int32.Parse(split[1]);
         }
-        public Op op = Op.nop;
+        public Op op = Op.NOP;
         public int v1 = 0;
         public bool visited = false;
     }
@@ -52,7 +52,6 @@ class Day8 : CodeTest
         {
             Code.Add(new Instruction(s));
         });
-        Code.Add(new Instruction("end +0"));
     }
 
     public int pc = 0;
@@ -83,7 +82,7 @@ class Day8 : CodeTest
                     pc += ipc.v1;
                     break;
                 case Op.end:
-                    Console.WriteLine(" ***** END *****");
+                    Console.WriteLine($" ** END acc={acc}");
                     return true;
                 default:
                     break;
@@ -110,12 +109,6 @@ class Day8 : CodeTest
     int changed = -1;
     void Change()
     {
-        if (changed >= Code.Count)
-        {
-            Console.WriteLine(" ** ERROR: End of program??");
-            //return;
-        }
-
         if (changed > -1)
         {
             // Swapping this one back first.
@@ -142,15 +135,14 @@ class Day8 : CodeTest
             }
         }
     }
+    
     public string RunB()
     {
         Reset();
-        Console.WriteLine($"Last line {Code[Code.Count - 1].op}");
         while(!RunProgram())
         {
             Reset();
             Change();
-            Console.WriteLine($" Deadlock from changing {changed}");
         }
 
         return acc.ToString();
