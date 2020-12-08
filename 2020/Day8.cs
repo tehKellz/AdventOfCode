@@ -63,26 +63,23 @@ class Day8 : CodeTest
         {
             Instruction ipc = Code[pc];
 
-            if (ipc.visited)
-            {
-                return false;
-            }
-
+            if (ipc.visited) return false;
             ipc.visited = true;
+
             switch(ipc.op)
             {
-                case Op.nop:
+                case Op.NOP:
                     pc++;
                     break;
-                case Op.acc:
+                case Op.ACC:
                     acc += ipc.v1;
                     pc++;
                     break;
-                case Op.jmp:
+                case Op.JMP:
                     pc += ipc.v1;
                     break;
-                case Op.end:
-                    Console.WriteLine($" ** END acc={acc}");
+                case Op.END:
+                    // Console.WriteLine($" ** END acc={acc}");
                     return true;
                 default:
                     break;
@@ -106,36 +103,33 @@ class Day8 : CodeTest
         }
     }
 
+    bool flip(int c)
+    {
+        switch (Code[changed].op)
+        {
+            case Op.NOP:
+                Code[changed].op = Op.JMP;
+                return true;
+            case Op.JMP:
+                Code[changed].op = Op.NOP;
+                return true;
+            default:
+                return false;
+        }
+    }
+
     int changed = -1;
     void Change()
     {
-        if (changed > -1)
-        {
-            // Swapping this one back first.
-            if (Code[changed].op == Op.nop)
-            {
-                Code[changed].op = Op.jmp;
-            }
-            else if (Code[changed].op == Op.jmp)
-            {
-                Code[changed].op = Op.nop;
-            }
-        }
+        // Swapping the last one back
+        if (changed > -1) flip(changed);
+
         for(++changed; changed<Code.Count; ++changed)
         {
-            if (Code[changed].op == Op.nop)
-            {
-                Code[changed].op = Op.jmp;
-                return;
-            }
-            else if (Code[changed].op == Op.jmp)
-            {
-                Code[changed].op = Op.nop;
-                return;
-            }
+            if (flip(changed)) return;
         }
     }
-    
+
     public string RunB()
     {
         Reset();
