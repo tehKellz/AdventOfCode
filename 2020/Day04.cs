@@ -106,7 +106,7 @@ class Day4 : CodeTest
     public void Init() 
     {
         Record curRecord = new Record();
-        Utils.Load<string>("./2020/Day4.input", (s, l) => 
+        Utils.Load<string>("./2020/Day04.input", (s, l) => 
         {
             if (s != "")
             {

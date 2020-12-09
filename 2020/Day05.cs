@@ -9,7 +9,7 @@ class Day5 : CodeTest
     List<int> Seats = new List<int>();
     public void Init() 
     {
-        Utils.Load<string>("2020/Day5.input", (s) => {
+        Utils.Load<string>("2020/Day05.input", (s) => {
             Seats.Add(FindSeat(s));
         });
         Seats.Sort();

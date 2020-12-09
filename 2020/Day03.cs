@@ -10,7 +10,7 @@ class Day3 : CodeTest
     List<string> Trees = new List<string>();
     public void Init() 
     {
-        Utils.Load<string>("./2020/Day3.input", Trees);
+        Utils.Load<string>("./2020/Day03.input", Trees);
     }
 
     private Int64 Slide(int dx, int dy)

@@ -48,7 +48,7 @@ class Day8 : CodeTest
     List<Instruction> Code = new List<Instruction>();
     public void Init() 
     {
-        Utils.Load<string>("2020/Day8.input", (s, n) =>
+        Utils.Load<string>("2020/Day08.input", (s, n) =>
         {
             Code.Add(new Instruction(s));
         });

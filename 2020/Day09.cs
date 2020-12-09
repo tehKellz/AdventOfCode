@@ -10,7 +10,7 @@ class Day9 : CodeTest
 
     Int64 weakness = -1;
     List<Int64> Seq = new List<Int64>();
-    public void Init() { Utils.Load("2020/Day9.input", Seq); }
+    public void Init() { Utils.Load("2020/Day09.input", Seq); }
 
     public bool Valid(int start, int end, Int64 value)
     {

@@ -10,7 +10,7 @@ class Day1 : CodeTest
 
     public void Init() 
     {
-        Utils.Load("./2020/Day1.input", Expenses);
+        Utils.Load("./2020/Day01.input", Expenses);
     }
 
     public string RunA()

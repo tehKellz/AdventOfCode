@@ -16,7 +16,7 @@ class Day6 : CodeTest
     {
         int total = 0;
         string current = "";
-        Utils.Load<string>("2020/Day6.input", (s) => {
+        Utils.Load<string>("2020/Day06.input", (s) => {
             if (s.Length == 0)
             {
                 foreach(char c in alpha)
@@ -39,7 +39,7 @@ class Day6 : CodeTest
     public string RunB()
     {
         List<List<string>> AllGroups = new List<List<string>>();
-        Utils.Load("2020/Day6.input", AllGroups);
+        Utils.Load("2020/Day06.input", AllGroups);
 
         int total = 0;
         foreach (List<string> family in AllGroups)

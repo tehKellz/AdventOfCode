@@ -35,7 +35,7 @@ class Day7 : CodeTest
 
     public void Init() 
     {
-        Utils.Load<string>("2020/Day7.input", (s, l) =>
+        Utils.Load<string>("2020/Day07.input", (s, l) =>
         {
             s = s.Replace("bags", "bag").Replace("bag.", "bag");
 

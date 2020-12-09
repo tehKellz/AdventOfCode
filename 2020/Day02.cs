@@ -9,7 +9,7 @@ class Day2 : CodeTest
     public string RunA()
     {
         int total = 0;
-        Utils.Load<string>("./2020/Day2.input", (s, l) => 
+        Utils.Load<string>("./2020/Day02.input", (s, l) => 
         {
             var t = s.Split(new Char [] {'-', ' ', ':'});
             int min = Int32.Parse(t[0]);
@@ -35,7 +35,7 @@ class Day2 : CodeTest
     public string RunB()
     {
         int total = 0;
-        Utils.Load<string>("./2020/Day2.input", (s, l) => 
+        Utils.Load<string>("./2020/Day02.input", (s, l) => 
         {
             StringView stv = new StringView(s);
             stv.Split(out int min, "-", out int max, " ", out char letter, ": ", out string pw);
