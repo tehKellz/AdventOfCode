@@ -5,7 +5,7 @@ namespace AdventOfCode
 {
 class Day8 : CodeTest
 {
-    public bool Enabled => true;
+    public bool Enabled => false;
 
     public enum Op
     {

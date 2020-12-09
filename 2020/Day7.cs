@@ -5,7 +5,7 @@ namespace AdventOfCode
 {
 class Day7 : CodeTest
 {
-    public bool Enabled => true;
+    public bool Enabled => false;
 
     class Bag
     {
