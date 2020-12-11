@@ -6,7 +6,7 @@ namespace AdventOfCode
 {
 class Day9 : CodeTest
 {
-    public bool Enabled => true;
+    public bool Enabled => false;
 
     Int64 weakness = -1;
     List<Int64> Seq = new List<Int64>();

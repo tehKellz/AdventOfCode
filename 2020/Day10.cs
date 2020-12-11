@@ -6,7 +6,7 @@ namespace AdventOfCode
 {
 class Day10 : CodeTest
 {
-    public bool Enabled => true;
+    public bool Enabled => false;
 
     List<int> Adapters = new List<int>();
     public void Init() 
