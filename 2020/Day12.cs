@@ -10,8 +10,6 @@ class Day12 : CodeTest
     List<string> Orders = new List<string>();
     public void Init() 
     {
-        int test = (1 - 3) % 4;
-        Console.WriteLine($"{test}");
         Utils.Load("2020/Day12.input", Orders);
     }
 
@@ -29,22 +27,12 @@ class Day12 : CodeTest
         foreach(var o in Orders)
         {
             int v1 = Int32.Parse(o.Substring(1));
-            char order = o[0];
-            // Console.WriteLine($"{v1} {order}");
-            switch(order)
+            switch(o[0])
             {
-                case 'W':
-                    E -= v1;
-                    break;
-                case 'E':
-                    E += v1;
-                    break;
-                case 'S':
-                    N -= v1;
-                    break;
-                case 'N':
-                    N += v1;
-                    break;
+                case 'W': E -= v1; break;
+                case 'E': E += v1; break;
+                case 'S': N -= v1; break;
+                case 'N': N += v1; break;
                 case 'L':
                     v1 = v1 / 90;
                     D -= v1;
@@ -60,10 +48,6 @@ class Day12 : CodeTest
                     else if (D == 1) N -= v1;
                     else if (D == 2) E -= v1;
                     else if (D == 3) N += v1;
-                    else Console.WriteLine("WEIRD D = " + D.ToString());
-                    break;
-                default:
-                    Console.WriteLine($"Unexpected order {order}");
                     break;
             }
         }
@@ -77,31 +61,15 @@ class Day12 : CodeTest
         int WE = 10;
         int WN = 1;
 
-        //        N
-        //        3
-        // <--W 2 x 0 E-->
-        //        1
-        //        S
-
         foreach(var o in Orders)
         {
             int v1 = Int32.Parse(o.Substring(1));
-            char order = o[0];
-            // Console.WriteLine($"{v1} {order}");
-            switch(order)
+            switch(o[0])
             {
-                case 'W':
-                    WE -= v1;
-                    break;
-                case 'E':
-                    WE += v1;
-                    break;
-                case 'S':
-                    WN -= v1;
-                    break;
-                case 'N':
-                    WN += v1;
-                    break;
+                case 'W': WE -= v1; break;
+                case 'E': WE += v1; break;
+                case 'S': WN -= v1; break;
+                case 'N': WN += v1; break;
                 case 'L':
                 case 'R':
                     if (o == "R90" || o == "L270")
@@ -121,17 +89,10 @@ class Day12 : CodeTest
                         WN = WE;
                         WE = x;
                     }
-                    else
-                    {
-                        Console.WriteLine($"Bad rotation math! {v1}");
-                    }
                     break;
                 case 'F':
                     SE += (WE * v1);
                     SN += (WN * v1);
-                    break;
-                default:
-                    Console.WriteLine($"Unexpected order {order}");
                     break;
             }
         }
