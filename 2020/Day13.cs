@@ -26,11 +26,6 @@ class Day13 : CodeTest
         });
     }
 
-    public Int64 NextBus(Int64 now, Int64 busId)
-    {
-        return busId * ((now / busId) + 1);
-    }
-
     public string RunA()
     {
         int bus = 0;
@@ -50,9 +45,31 @@ class Day13 : CodeTest
         return $"It is {now}, next bus is {bus} at {depart}, magic: {(depart - now)*bus}";
     }
 
+    public struct Bus
+    {
+        public Bus(int b, int o) { BusId = b; Offset = o; }
+        public int BusId;
+        public int Offset;
+    }
+
+    List<Bus> Busses = new List<Bus>();
     public string RunB()
     {
-        return $"Learn Chinese Remainder Therem";
+        for(int i=0; i<Times.Count; ++i)
+        {
+            if (Times[i] >= 0) Busses.Add(new Bus(Times[i], i));
+        }
+
+        Int64 t = 0;
+        Int64 inc = Busses[0].BusId;
+        for(int i=1; i< Busses.Count; ++i)
+        {
+            Bus b = Busses[i];
+            while ((t + b.Offset) % b.BusId != 0) t += inc;
+            inc *= b.BusId;
+        }
+
+        return $"{t}";
     }
 }
 }
