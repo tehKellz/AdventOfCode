@@ -5,7 +5,7 @@ namespace AdventOfCode
 {
 class Day12 : CodeTest
 {
-    public bool Enabled => true;
+    public bool Enabled => false;
 
     List<string> Orders = new List<string>();
     public void Init() 
