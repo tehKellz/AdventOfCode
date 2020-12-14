@@ -5,7 +5,7 @@ namespace AdventOfCode
 {
 class Day13 : CodeTest
 {
-    public bool Enabled => true;
+    public bool Enabled => false;
 
     int now = 0;
     List<int> Times = new List<int>();
