@@ -29,20 +29,20 @@ class Day15 : CodeTest
         Dictionary<int,int> input = new Dictionary<int,int>()
             { {13,0}, {0,1}, {10,2}, {12,3}, {1,4}, {5,5}}; //, {8,6} };
 
-        int curr = input.Count;
-        int last = 8;
+        int currTurn = input.Count;
+        int currNumber = 8;
 
-        while (curr < 29999999) // 1 less than 30mil since we want our value in last.
+        while (currTurn < 29999999) // 1 less than 30mil since we want our value in last.
         {
             int nextNum = 0;
-            if (input.TryGetValue(last, out int lastIndex))
-                nextNum = curr - lastIndex;
+            if (input.TryGetValue(currNumber, out int lastIndex))
+                nextNum = currTurn - lastIndex;
 
-            input[last] = curr++;
-            last = nextNum;
+            input[currNumber] = currTurn++;
+            currNumber = nextNum;
         }
 
-        return $"{last}";
+        return $"{currNumber} size:{input.Count}";
     }
 }
 }
