@@ -6,7 +6,7 @@ namespace AdventOfCode
 {
 class Day14 : CodeTest
 {
-    public bool Enabled => true;
+    public bool Enabled => false;
 
     List<string> Prog = new List<string>();
     public void Init() 
