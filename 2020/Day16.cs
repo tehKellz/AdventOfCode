@@ -5,7 +5,7 @@ namespace AdventOfCode
 {
 class Day16 : CodeTest
 {
-    public bool Enabled => true;
+    public bool Enabled => false;
 
     public List<int> MyTicket = new List<int>()
     {151,103,173,199,211,107,167,59,113,179,53,197,83,163,101,149,109,79,181,73};
