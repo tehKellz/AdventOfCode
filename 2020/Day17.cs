@@ -9,10 +9,10 @@ class Day17 : CodeTest
 
     public struct Cell
     {
-        public int X,Y,Z;
-        public Cell(int x, int y, int z)
+        public int X,Y,Z,W;
+        public Cell(int x, int y, int z, int w)
         {
-            X=x;Y=y;Z=z;
+            X=x;Y=y;Z=z;W=w;
         }
         // From stackoverflow
         override public int GetHashCode()
@@ -20,27 +20,30 @@ class Day17 : CodeTest
             unchecked // Overflow is fine, just wrap
             {
                 int hash = (int) 2166136261;
-                // Suitable nullity checks etc, of course :)
                 hash = (hash * 16777619) ^ X.GetHashCode();
                 hash = (hash * 16777619) ^ Y.GetHashCode();
                 hash = (hash * 16777619) ^ Z.GetHashCode();
+                hash = (hash * 16777619) ^ W.GetHashCode();
                 return hash;
             }
         }
     }
 
     public HashSet<Cell> Pocket = new HashSet<Cell>();
-    public Cell Min = new Cell(999,999,999);
-    public Cell Max = new Cell(0,0,0);
+    public Cell Min = new Cell(999,999,999,999);
+    public Cell Max = new Cell(0,0,0,0);
 
     public void UpdateBounds(Cell c)
     {
         if (c.X < Min.X) Min.X = c.X;
         if (c.Y < Min.Y) Min.Y = c.Y;
         if (c.Z < Min.Z) Min.Z = c.Z;
+        if (c.W < Min.W) Min.W = c.W;
+
         if (c.X > Max.X) Max.X = c.X;
         if (c.Y > Max.Y) Max.Y = c.Y;
         if (c.Z > Max.Z) Max.Z = c.Z;
+        if (c.W > Max.W) Max.W = c.W;
     }
 
     public void Init() 
@@ -51,34 +54,33 @@ class Day17 : CodeTest
             {
                 if (s[i] == '#')
                 {
-                    Cell c = new Cell(i,n,0);
+                    Cell c = new Cell(i,n,0,0);
                     UpdateBounds(c);
                     Pocket.Add(c);
                 }
             }
         });
-
-        Console.WriteLine($"Active in Pocket: {Pocket.Count}");
     }
 
-    void SetCell(int x, int y, int z, HashSet<Cell> newPocket)
+    void SetCell(int x, int y, int z, int w,HashSet<Cell> newPocket, bool hyper)
     {
-        Cell c = new Cell(x,y,z);
+        Cell c = new Cell(x,y,z,w);
 
         int neighbors = 0;
         for(int xi = x-1; xi <= x+1; ++xi)
-        {
             for(int yi = y-1; yi <= y+1; ++yi)
-            {
                 for(int zi = z-1; zi <= z+1; ++zi)
-                {
-                    if ( (z!=zi||y!=yi||x!=xi) && Pocket.Contains(new Cell(xi,yi,zi)))
+                    if (hyper)
                     {
-                        ++neighbors;
+                        for(int wi = w-1; wi <= w+1; ++wi)
+                            if ( (z!=zi||y!=yi||x!=xi||w!=wi) && Pocket.Contains(new Cell(xi,yi,zi,wi))) 
+                                ++neighbors;
                     }
-                }
-            }
-        }
+                    else
+                    {
+                        if ( (z!=zi||y!=yi||x!=xi) && Pocket.Contains(new Cell(xi,yi,zi,0)))
+                            ++neighbors;
+                    }
 
         bool active = Pocket.Contains(c);
         if (active)
@@ -109,11 +111,10 @@ class Day17 : CodeTest
             for(int x = Min.X-1; x<Max.X+2;++x)
                 for(int y = Min.Y-1; y<Max.Y+2;++y)
                     for(int z = Min.Z-1; z<Max.Z+2;++z)
-                    {
-                        SetCell(x,y,z,newPocket);
-                    }
+                        {
+                            SetCell(x,y,z,0,newPocket,false);
+                        }
             Pocket = newPocket;
-            Console.WriteLine($" End day {cycle}, active in Pocket: {Pocket.Count}");
         }
 
         return $"Active: {Pocket.Count}";
@@ -121,9 +122,22 @@ class Day17 : CodeTest
 
     public string RunB()
     {
-        Console.WriteLine("Hello World B");
+        Pocket = new HashSet<Cell>();
+        Init();
+        for(int cycle = 0; cycle < 6; ++cycle)
+        {
+            HashSet<Cell> newPocket = new HashSet<Cell>();
+            for(int x = Min.X-1; x<Max.X+2;++x)
+                for(int y = Min.Y-1; y<Max.Y+2;++y)
+                    for(int z = Min.Z-1; z<Max.Z+2;++z)
+                        for(int w = Min.W-1; w<Max.W+2;++w)
+                        {
+                            SetCell(x,y,z,w,newPocket,true);
+                        }
+            Pocket = newPocket;
+        }
 
-        return "Template Output B";
+        return $"Active: {Pocket.Count}";
     }
 }
 }
