@@ -7,7 +7,7 @@ namespace AdventOfCode
 {
 class Day18 : CodeTest
 {
-    public bool Enabled => true;
+    public bool Enabled => false;
 
     List<List<string>> Problems = new List<List<string>>();
 
