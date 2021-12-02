@@ -8,26 +8,33 @@ class Day02_21 : CodeTest
     public string TestName = "2021/Day02";
     public bool Enabled => true;
     
-    private List<string> Data = new List<string>();
+    class Command : Utils.IValue
+    {
+        public string Op;
+        public int Val;
+        public void FromString(string[] line) 
+        {
+            Op = line[0];
+            Val = Int32.Parse(line[1]);
+        }
+    }
+    private List<Command> Data = new List<Command>();
     
     public void Init() 
     {
-        Utils.Load($"{TestName}.input", Data);
+        Utils.LoadValues($"{TestName}.input", Data);
     }
 
     public string RunA()
     {
-        int depth = 0;
-        int dist = 0;
+        int depth = 0; int dist = 0;
         foreach(var d in Data)
         {
-            var cmd = d.Split(' ');
-            int val = Int32.Parse(cmd[1]);
-            switch(cmd[0])
+            switch(d.Op)
             {
-                case "up": depth -= val; break;
-                case "down": depth += val; break;
-                case "forward": dist += val; break;
+                case "up": depth -= d.Val; break;
+                case "down": depth += d.Val; break;
+                case "forward": dist += d.Val; break;
                 default: break;
             }
         }
@@ -45,17 +52,15 @@ class Day02_21 : CodeTest
         int depth = 0; int dist = 0; int aim = 0;
         foreach(var d in Data)
         {
-            var cmd = d.Split(' ');
-            int val = Int32.Parse(cmd[1]);
-            switch(cmd[0])
+            switch(d.Op)
             {
-                case "up": aim -= val; break;
-                case "down": aim += val; break;
-                case "forward": dist += val; depth += aim * val; break;
+                case "up": aim -= d.Val; break;
+                case "down": aim += d.Val; break;
+                case "forward": dist += d.Val; depth += aim * d.Val; break;
                 default: break;
             }
         }
         return (depth * dist).ToString();
-    }
+    } 
 }
 }

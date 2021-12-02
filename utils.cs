@@ -81,6 +81,22 @@ public static class Utils
         });
     }
 
+    public interface IValue
+    {
+        void FromString(string[] line);
+    }
+
+    static public bool LoadValues<T1>(string fileName, List<T1> values, char delim = ' ') 
+        where T1 : IValue,new()
+    {
+        return Load<string>(fileName, (l,n) =>
+        {
+            values.Add(new T1());
+            values[values.Count - 1].FromString(l.Split(' '));
+            return false;
+        });
+    }
+
     static public void Load<K,V>(string fileName, Dictionary<K,V> output, string seperator = ",")
     {
         Load<K,V>(fileName, (k,v) => {
