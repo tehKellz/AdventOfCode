@@ -68,36 +68,26 @@ class Day03_21 : CodeTest
 
     public string RunB()
     {
-        List<string> o = new List<string>(Data);
+        Func<Func<List<string>, int,char>,string> filter = (Func<List<string>, int,char> findMethod) =>
         {
-            int bit=0;
-            while(o.Count > 1)
+            List<string> data = new List<string>(Data);
             {
-                char match = findMost(o,bit);
+                int bit=0;
+                while(data.Count > 1)
+                {
+                    char match = findMethod(data,bit);
 
-                List<string> newO = new List<string>();
-                foreach(var d in o) if(d[bit] == match) newO.Add(d);
-                o = newO;
-                ++bit;
+                    List<string> newData = new List<string>();
+                    foreach(var d in data) if(d[bit] == match) newData.Add(d);
+                    data = newData;
+                    ++bit;
+                }
             }
-        }
-        
-        List<string> co2 = new List<string>(Data);
-        {
-            int bit = 0;
-            while(co2.Count > 1)
-            {
-                char match = findLeast(co2,bit);
+            return data[0];
+        };
 
-                List<string> newCo2 = new List<string>();
-                foreach(var d in co2) if(d[bit] == match) newCo2.Add(d);
-                co2 = newCo2;
-                ++bit;
-            }
-        }
-
-        Int64 oxygen = Convert.ToInt32(o[0], 2);
-        Int64 carbon = Convert.ToInt32(co2[0], 2);
+        Int64 oxygen = Convert.ToInt32(filter(findMost), 2);
+        Int64 carbon = Convert.ToInt32(filter(findLeast), 2);
 
         return $"O:{oxygen} CO2:{carbon} LIFE:{oxygen*carbon}";
     }
