@@ -6,7 +6,7 @@ namespace AdventOfCode
 class Day02_21 : CodeTest
 {
     public string TestName = "2021/Day02";
-    public bool Enabled => true;
+    public bool Enabled => false;
     
     class Command : Utils.IValue
     {
