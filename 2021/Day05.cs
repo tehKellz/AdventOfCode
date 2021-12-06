@@ -6,7 +6,7 @@ namespace AdventOfCode
 class Day05_21 : CodeTest
 {
     public string TestName = "2021/Day05";
-    public bool Enabled => true;
+    public bool Enabled => false;
     
     class Point
     {
