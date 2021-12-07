@@ -8,9 +8,9 @@ class Day06_21 : CodeTest
     public string TestName = "2021/Day06";
     public bool Enabled => true;
     
-    // Dictionary of [Days-to-spawn] to #-of-fish.
+    // Array of [Days-to-spawn] to #-of-fish.
     // ie School[0] is the # of fish that will spawn tomorrow.
-    private Dictionary<int,UInt64> School = new Dictionary<int,UInt64>();
+    private UInt64[] School = new UInt64[9];
     
     public void Init() 
     {
@@ -27,15 +27,14 @@ class Day06_21 : CodeTest
     {
         for(int day =0; day < days; ++day)
         {
-            Dictionary<int,UInt64> newSchool = new Dictionary<int,UInt64>();
-            for(int i=0;i<8;++i) newSchool[i] = School[i+1];
-            newSchool[6] += School[0];
-            newSchool[8] =  School[0];
-            School = newSchool;
+            UInt64 tmp = School[0];
+            for(int i=1;i<9;++i) School[i-1] = School[i];
+            School[6] += tmp;
+            School[8] =  tmp;
         }
 
         UInt64 totalFish = 0;
-        foreach(var f in School) totalFish += f.Value;
+        foreach(var f in School) totalFish += f;
         return totalFish;
     }
 
