@@ -6,7 +6,7 @@ namespace AdventOfCode
 class Day06_21 : CodeTest
 {
     public string TestName = "2021/Day06";
-    public bool Enabled => true;
+    public bool Enabled => false;
     
     // Array of [Days-to-spawn] to #-of-fish.
     // ie School[0] is the # of fish that will spawn tomorrow.
