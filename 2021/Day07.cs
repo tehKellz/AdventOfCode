@@ -7,7 +7,7 @@ namespace AdventOfCode
 class Day07_21 : CodeTest
 {
     public string TestName = "2021/Day07";
-    public bool Enabled => true;
+    public bool Enabled => false;
     
     private List<int> Data = new List<int>();
     
