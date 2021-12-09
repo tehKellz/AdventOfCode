@@ -17,15 +17,15 @@ class Day09_21 : CodeTest
         
         public bool Contains(int x, int y) { return BasinMap[x,y]; }
         public void Add(int x, int y) { BasinMap[x,y] = true; }
-        public bool Absorb(Basin other)
+        public void Absorb(Basin other)
         {
-            if (other == null || other == this) return false;
+            if (other == null || other == this) return;
             for(int x=0;x<100;++x)
                 for(int y=0;y<100;++y)
                     BasinMap[x,y] |= other.BasinMap[x,y];
             Basins.Remove(other);
-            return true;
         }
+
         public int GetSize()
         {
             int size = 0;
@@ -38,8 +38,7 @@ class Day09_21 : CodeTest
     {
         Utils.Load($"{TestName}.input", (string l, int n) =>
         {
-            for(int i=0;i<100;++i)
-                Map[i,n] = int.Parse($"{l[i]}");
+            for(int i=0;i<100;++i) Map[i,n] = int.Parse($"{l[i]}");
             return false; // return true would stop parsing lines
         });
     }
@@ -74,9 +73,7 @@ class Day09_21 : CodeTest
         if (Map[x,y] == 9) return;
 
         Basin myBasin = GetBasin(x,y);
-        myBasin.Absorb(GetBasin(x,y+1));
         myBasin.Absorb(GetBasin(x,y-1));
-        myBasin.Absorb(GetBasin(x+1,y));
         myBasin.Absorb(GetBasin(x-1,y));
     }
 
