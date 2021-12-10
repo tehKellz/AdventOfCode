@@ -6,7 +6,7 @@ namespace AdventOfCode
 class Day09_21 : CodeTest
 {
     public string TestName = "2021/Day09";
-    public bool Enabled => true;
+    public bool Enabled => false;
 
     private int[,] Map = new int[100,100];
     private static List<Basin> Basins = new List<Basin>();
