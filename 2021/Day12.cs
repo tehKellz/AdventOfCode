@@ -6,7 +6,7 @@ namespace AdventOfCode
 class Day12_21 : CodeTest
 {
     public string TestName = "2021/Day12";
-    public bool Enabled => true;
+    public bool Enabled => false;
     
     class Cave
     {
