@@ -8,22 +8,14 @@ class Template_21 : CodeTest
     public string TestName = "2021/Template";
     public bool Enabled => false;
     
-    class Command : Utils.IValue
-    {
-        public string Op;
-        public int Val;
-        public void FromString(string[] line) 
-        {
-            Op = line[0];
-            Val = Int32.Parse(line[1]);
-        }
-    }
-    
-    private List<Command> Data = new List<Command>();
+    private List<string> Data = new List<string>();
     
     public void Init() 
     {
-        Utils.LoadValues($"{TestName}.input", Data);
+        Utils.Load($"{TestName}.input", (string s, int n) =>
+        {
+
+        });
     }
 
     public string RunA()
