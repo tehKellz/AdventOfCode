@@ -3,13 +3,21 @@ using System.Collections.Generic;
 
 namespace AdventOfCode
 {
+static class Extensions
+{
+    public static void AddValue<T>(this Dictionary<T,Int64> self, T key, Int64 value)
+    {
+        if (!self.ContainsKey(key)) self[key] = value;
+        else self[key] += value;
+    }
+}
+
 class Day14_21 : CodeTest
 {
     public string TestName = "2021/Day14";
     public bool Enabled => true;
     
     private string Poly = "BCHCKFFHSKPBSNVVKVSK";
-
     private Dictionary<string,string> Rules = new Dictionary<string,string>();
     
     public void Init() 
@@ -21,71 +29,57 @@ class Day14_21 : CodeTest
         });
     }
 
-    public string ApplyRules(string poly)
+    public Dictionary<string,Int64> ApplyRules(Dictionary<string,Int64> pairs)
     {
-        string newString = "";
-        for(int i=0; i<poly.Length - 1; ++i)
+        Dictionary<string,Int64> newPairs = new Dictionary<string,Int64>();
+        foreach(var key in pairs.Keys)
         {
-            newString += poly[i];
-            string pair = poly.Substring(i,2);
-            if (Rules.ContainsKey(pair))
+            if (Rules.ContainsKey(key))
             {
-                newString += Rules[pair];
+                newPairs.AddValue($"{key[0]}{Rules[key]}", pairs[key]);
+                newPairs.AddValue($"{Rules[key]}{key[1]}", pairs[key]);
             }
+            else newPairs[key] = pairs[key];
         }
-        newString += poly[poly.Length - 1];
-        return newString;
+        return newPairs;
     }
 
-    
-    public int Score(string poly)
+    public Int64 Score(Dictionary<string,Int64> pairs)
     {
-        Dictionary<char,int> counts = new Dictionary<char,int>();
-        foreach(char c in poly)
+        Dictionary<char,Int64> counts = new Dictionary<char,Int64>();
+        foreach(string key in pairs.Keys)
         {
-            if (!counts.ContainsKey(c)) counts[c] = 0;
-            counts[c]++;
+            counts.AddValue(key[0], pairs[key]);
+            counts.AddValue(key[1], pairs[key]);
         }
+        counts[Poly[0]]++;
+        counts[Poly[Poly.Length - 1]]++;
 
-        char maxKey = ' ';
-        char minKey = ' ';
-        int max = 0;
-        int min = 99999999;
+        Int64 max = 0;
+        Int64 min = Int64.MaxValue;
         foreach(var kp in counts)
         {
-            if(kp.Value > max) { max = kp.Value; maxKey = kp.Key; }
-            if(kp.Value < min) { min = kp.Value; minKey = kp.Key; }
+            if(kp.Value > max) max = kp.Value;
+            if(kp.Value < min) min = kp.Value;
         }
-        Console.WriteLine($"Min [{minKey},{min}], Max [{maxKey},{max}]");
-        return max - min;
+
+        return (max / 2) - (min / 2);
     }
 
+    Dictionary<string,Int64> pairs = new Dictionary<string,Int64>();
     public string RunA()
     {
-        Console.WriteLine($"{TestName}: {Rules.Count}");
-        string result = Poly;
-        for(int i=0;i<10;++i)
-        {
-            result = ApplyRules(result);
-            Console.Write($"{i} ");
-            Score(result);
-        }
+        for(int i=0; i<Poly.Length - 1; ++i)
+            pairs.AddValue(Poly.Substring(i,2),1);
 
-
-
-        return $"score: {Score(result)}";
+        for(int i=0;i<10;++i) pairs = ApplyRules(pairs);
+        return $"score: {Score(pairs)}";
     }
 
     public string RunB()
     {
-        Console.WriteLine($"{TestName}: {Rules.Count}");
-
-        string result = Poly;
-        for(int i=0;i<40;++i)
-        {
-            result = ApplyRules(result);
-        }
-        return $"score: {Score(result)}";
+        for(int i=0;i<30;++i) pairs = ApplyRules(pairs);
+        return $"score: {Score(pairs)}";
     }
 }
 }
