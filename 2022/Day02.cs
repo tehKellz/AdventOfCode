@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace AdventOfCode
 {
-class Day02: CodeTest
+class Day02_22: CodeTest
 {
     public string TestName = "2022/Day02";
     public bool Enabled => false;
