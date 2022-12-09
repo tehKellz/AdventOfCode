@@ -15,7 +15,7 @@ static class Extensions
 class Day14_21 : CodeTest
 {
     public string TestName = "2021/Day14";
-    public bool Enabled => true;
+    public bool Enabled => false;
     
     private string Poly = "BCHCKFFHSKPBSNVVKVSK";
     private Dictionary<string,string> Rules = new Dictionary<string,string>();
