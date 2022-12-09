@@ -7,7 +7,7 @@ namespace AdventOfCode
 class Day13_21 : CodeTest
 {
     public string TestName = "2021/Day13";
-    public bool Enabled => true;
+    public bool Enabled => false;
     
     public class Point
     {
