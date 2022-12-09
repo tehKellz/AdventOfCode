@@ -22,14 +22,14 @@ class Template_22: CodeTest
     {
         Console.WriteLine($"{TestName}: {Data.Count}");
 
-        return "Output A";
+        return $"Output A";
     }
 
     public string RunB()
     {
         Console.WriteLine($"{TestName}: {Data.Count}");
 
-        return "Output B";
+        return $"Output B";
     }
 }
 }

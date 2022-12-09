@@ -6,7 +6,7 @@ namespace AdventOfCode
 class Day02: CodeTest
 {
     public string TestName = "2022/Day02";
-    public bool Enabled => true;
+    public bool Enabled => false;
 
     public class RPSRound
     {
@@ -76,12 +76,11 @@ class Day02: CodeTest
         Utils.Load<string>($"{TestName}.input", (string l, int n) =>
         {
             RPSRound r = new RPSRound();
-            string debug = "";
             switch(l[0])
             {
-            case 'A': r.theirs = 1; debug = "ROCK"; break;
-            case 'B': r.theirs = 2; debug = "PAPER"; break;
-            case 'C': r.theirs = 3; debug = "SCISSORS"; break;
+            case 'A': r.theirs = 1; break;
+            case 'B': r.theirs = 2; break;
+            case 'C': r.theirs = 3; break;
             }
 
             switch(l[2])
@@ -105,7 +104,6 @@ class Day02: CodeTest
             
             r.score = r.outcome + r.mine;
             total += r.score;
-            //Console.WriteLine(debug);
             Data.Add(r);
         });
         return $"Output B {total}";
